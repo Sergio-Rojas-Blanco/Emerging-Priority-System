@@ -1,0 +1,177 @@
+$SIGNALGRUPPEN
+CROSSIG                  VISSIM
+K1                       K1
+K3                       K3
+K4                       K4
+K10                      K10
+K11                      K11
+F22                      F22
+F23                      F23
+F24                      F24
+F25                      F25
+B43                      B43
+S51                      S51
+S52                      S52
+S53                      S53
+$
+K1                       1
+K3                       3
+K4                       4
+K10                      10
+K11                      11
+F22                      22
+F23                      23
+F24                      24
+F25                      25
+B43                      43
+S51                      51
+S52                      52
+S53                      53
+
+$ZZM
+$
+                            K1             K3             K4            K10            K11            F22            F23            F24            F25            B43            S51            S52            S53
+             K1           -127           -127           -127           -127           -127           -127           -127              4           -127              5           -127           -127           -127
+             K3           -127           -127              5              5              7              7           -127           -127              4           -127           -127              5              7
+             K4           -127              7           -127              5              4              4           -127           -127           -127           -127           -127              4              3
+            K10           -127              5              3           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127
+            K11           -127              3              3           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127
+            F22           -127              4              6           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127
+            F23           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127              6           -127              1
+            F24              8           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127
+            F25           -127             10           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127
+            B43              6           -127           -127           -127           -127           -127           -127           -127           -127           -127              5           -127              3
+            S51           -127           -127           -127           -127           -127           -127              7           -127           -127              4           -127           -127           -127
+            S52           -127              5              6           -127           -127           -127           -127           -127           -127           -127           -127           -127           -127
+            S53           -127              4              6           -127           -127           -127             10           -127           -127              6           -127           -127           -127
+
+$PHASEN
+CROSSIG                  VISSIM
+1                        Phase_1
+2                        Phase_2
+3                        Phase_3
+$
+Phase_1                  K1	K10	K11	F22	F25	S51	S52	S53	
+  rot                    K3	K4	F23	F24	B43	
+Phase_2                  K3	F23	F24	B43	
+  rot                    K1	K4	K10	K11	F22	F25	S51	S52	S53	
+Phase_3                  K4	F23	F24	F25	B43	
+  rot                    K1	K3	K10	K11	F22	S51	S52	S53	
+
+$STARTPHASE
+$
+Phase_1
+
+$PÜ
+PÜ-Name                : --- berechnet ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 1
+Übergangsdauer [s]     : 15
+Von Phase              : 1
+Nach Phase             : 2
+$
+K1                       -127              0
+K3                         10            127
+K10                      -127              5
+K11                      -127              7
+F22                      -127              6
+F23                        10            127
+F24                         4            127
+F25                      -127              0
+B43                         7            127
+S51                      -127              2
+S52                      -127              5
+S53                      -127              0
+
+$PÜ
+PÜ-Name                : --- berechnet ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 2
+Übergangsdauer [s]     : 15
+Von Phase              : 1
+Nach Phase             : 3
+$
+K1                       -127              0
+K4                          6            127
+K10                      -127              3
+K11                      -127              3
+F22                      -127              0
+F23                        10            127
+F24                         4            127
+B43                         7            127
+S51                      -127              2
+S52                      -127              0
+S53                      -127              0
+
+$PÜ
+PÜ-Name                : --- berechnet ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 3
+Übergangsdauer [s]     : 13
+Von Phase              : 2
+Nach Phase             : 1
+$
+K1                          8            127
+K3                       -127              0
+K10                         5            127
+K11                         7            127
+F22                         7            127
+F23                      -127              0
+F24                      -127              0
+F25                         4            127
+B43                      -127              1
+S51                         5            127
+S52                         4            127
+S53                         6            127
+
+$PÜ
+PÜ-Name                : --- berechnet ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 4
+Übergangsdauer [s]     : 10
+Von Phase              : 2
+Nach Phase             : 3
+$
+K3                       -127              0
+K4                          5            127
+F25                         4            127
+
+$PÜ
+PÜ-Name                : --- berechnet ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 5
+Übergangsdauer [s]     : 13
+Von Phase              : 3
+Nach Phase             : 1
+$
+K1                          8            127
+K4                       -127              0
+K10                         5            127
+K11                         4            127
+F22                         4            127
+F23                      -127              0
+F24                      -127              0
+B43                      -127              0
+S51                         5            127
+S52                         3            127
+S53                         2            127
+
+$PÜ
+PÜ-Name                : --- berechnet ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 6
+Übergangsdauer [s]     : 15
+Von Phase              : 3
+Nach Phase             : 2
+$
+K3                         10            127
+K4                       -127              3
+F25                      -127              0
+
+$ENDE

@@ -1,0 +1,479 @@
+PROGRAM L05_11hp; /* F:\DEMO_SIM\Demo_Intern\Aktuell\Luxembourg\Visvap\L05_11hp.vv */
+
+CONST 
+            GZL = 3,
+            GZL_K2 = 4,
+            MAXBEL_1_5 = 8,
+            MAXBEL_2 = 8,
+            MAXWZ_2 = 90,
+            MAXWZ_1_5 = 100,
+            MAXWZ_FG = 75,
+            FnT = 30,
+            T_Rueckstell = 30;
+
+/* UNTERPROGRAMME */ 
+
+SUBROUTINE OEV_MODUL;  /* L05_9oev.vv */
+/* VARIABLEN & AUSDRUECKE */ 
+
+D01S00Z001: IF  NOT Init_Oev THEN
+D01S01Z001:     Init_Oev := 1;
+D01S01Z002:     RFnT := 99
+            END;
+D01S00Z004: IF Anf(511) THEN
+D01S01Z004:     Anf511 := 1
+            END;
+D01S00Z006: IF Anf(521) THEN
+D01S01Z006:     Anf521 := 1
+            END;
+D01S00Z008: IF ( T_Wart >= 6 ) THEN
+D01S01Z008:     Stop( T_Wart ); Reset( T_Wart );
+D01S01Z009:     IF Rueckst_51 THEN
+D01S02Z009:         Rueckst_51 := 0;
+D01S03Z009:         WiederAnf511 := 1
+                ELSE
+D01S01Z010:         IF Rueckst_52 THEN
+D01S02Z010:             Rueckst_52 := 0;
+D01S03Z010:             WiederAnf521 := 1
+                    END
+                END
+            END;
+D01S00Z012: IF Tg( 51 ) > T_Rueckstell THEN
+D01S01Z012:     IF  NOT Rueckst_51  AND NOT Rueckst_52 THEN
+D01S02Z012:         Rueckst_51 := 1; Start( T_Wart );
+D01S02Z014:         Anf519 := 1;
+D01S02Z015:         Abmeld := 1
+                ELSE
+D01S00Z014:         IF Anf( 519 ) THEN
+D01S01Z014:             IF  NOT Rueckst_51 THEN
+                            GOTO D01S02Z014
+                        ELSE
+D01S01Z015:                 Rueckst_51 := 0
+                        END
+                    END
+                END
+            ELSE
+                GOTO D01S00Z014
+            END;
+D01S00Z017: IF Tg( 52 ) > T_Rueckstell THEN
+D01S01Z017:     IF  NOT Rueckst_51  AND NOT Rueckst_52 THEN
+D01S02Z017:         Rueckst_52 := 1; Start( T_Wart );
+D01S02Z019:         Anf529 := 1;
+D01S02Z020:         Abmeld := 1
+                ELSE
+D01S00Z019:         IF Anf( 529 ) THEN
+D01S01Z019:             IF  NOT Rueckst_52 THEN
+                            GOTO D01S02Z019
+                        ELSE
+D01S01Z020:                 Rueckst_52 := 0
+                        END
+                    END
+                END
+            ELSE
+                GOTO D01S00Z019
+            END;
+D01S00Z022: IF Anf511 THEN
+D01S01Z022:     Anf511 := 0;
+D01S01Z024:     IF AnfT = 0 THEN
+D01S02Z024:         AnfT := 1;
+D01S03Z024:         RFnT := FnT
+                ELSE
+D01S01Z025:         IF AnfT = 1 THEN
+D01S02Z025:             AnfT := 2;
+D01S03Z025:             RFnT2 := FnT
+                    ELSE
+D01S01Z026:             IF AnfT = 2 THEN
+D01S02Z026:                 AnfT := 3;
+D01S03Z026:                 RFnT3 := FnT
+                        ELSE
+D01S01Z027:                 IF AnfT = 3 THEN
+D01S02Z027:                     AnfT := 4;
+D01S03Z027:                     RFnT4 := FnT
+                            ELSE
+D01S01Z028:                     IF AnfT = 4 THEN
+D01S02Z028:                         AnfT := 5;
+D01S03Z028:                         RFnT5 := FnT
+                                ELSE
+D01S02Z029:                         AnfT := 6;
+D01S03Z029:                         RFnT6 := FnT
+                                END
+                            END
+                        END
+                    END
+                END
+            END;
+D01S00Z031: IF Anf521 THEN
+D01S01Z031:     Anf521 := 0;
+                GOTO D01S01Z024
+            ELSE
+D01S00Z032:     IF WiederAnf511 THEN
+D01S01Z032:         WiederAnf511 := 0;
+                    GOTO D01S01Z024
+                ELSE
+D01S00Z033:         IF WiederAnf521 THEN
+D01S01Z033:             WiederAnf521 := 0;
+                        GOTO D01S01Z024
+                    ELSE
+D01S00Z035:             IF Anf519 THEN
+D01S01Z035:                 Anf519 := 0;
+D01S01Z037:                 IF AnfT = 6 THEN
+D01S02Z037:                     AnfT := 5;
+D01S03Z037:                     RFnT := RFnT2;
+D01S04Z037:                     RFnT2 := RFnT3;
+D01S05Z037:                     RFnT3 := RFnT4;
+D01S06Z037:                     RFnT4 := RFnT5;
+D01S07Z037:                     RFnT5 := RFnT6;
+D01S08Z037:                     RFnT6 := 99
+                            ELSE
+D01S01Z038:                     IF AnfT = 5 THEN
+D01S02Z038:                         AnfT := 4;
+D01S03Z038:                         RFnT := RFnT2;
+D01S04Z038:                         RFnT2 := RFnT3;
+D01S05Z038:                         RFnT3 := RFnT4;
+D01S06Z038:                         RFnT4 := RFnT5;
+D01S07Z038:                         RFnT5 := 99
+                                ELSE
+D01S01Z039:                         IF AnfT = 4 THEN
+D01S02Z039:                             AnfT := 3;
+D01S03Z039:                             RFnT := RFnT2;
+D01S04Z039:                             RFnT2 := RFnT3;
+D01S05Z039:                             RFnT3 := RFnT4;
+D01S06Z039:                             RFnT4 := 99
+                                    ELSE
+D01S01Z040:                             IF AnfT = 3 THEN
+D01S02Z040:                                 AnfT := 2;
+D01S03Z040:                                 RFnT := RFnT2;
+D01S04Z040:                                 RFnT2 := RFnT3;
+D01S05Z040:                                 RFnT3 := 99
+                                        ELSE
+D01S01Z041:                                 IF AnfT = 2 THEN
+D01S02Z041:                                     AnfT := 1;
+D01S03Z041:                                     RFnT := RFnT2;
+D01S04Z041:                                     RFnT2 := 99
+                                            ELSE
+D01S01Z042:                                     IF AnfT = 1 THEN
+D01S02Z042:                                         AnfT := 0;
+D01S03Z042:                                         RFnT := 99
+                                                END
+                                            END
+                                        END
+                                    END
+                                END
+                            END
+                        END
+                    END
+                END
+            END;
+D01S00Z044: IF Anf529 THEN
+D01S01Z044:     Anf529 := 0;
+                GOTO D01S01Z037
+            ELSE
+D01S00Z045:     IF AnfT > 0 THEN
+D01S01Z045:         IF AnfT >= 6 THEN
+D01S02Z045:             IF RFnT6 > 0 THEN
+D01S03Z045:                 RFnT6 := RFnT6 -1;
+D01S02Z047:                 IF RFnT5 > 0 THEN
+D01S03Z047:                     RFnT5 := RFnT5 -1;
+D01S02Z049:                     IF RFnT4 > 0 THEN
+D01S03Z049:                         RFnT4 := RFnT4 -1;
+D01S02Z051:                         IF RFnT3 > 0 THEN
+D01S03Z051:                             RFnT3 := RFnT3 -1;
+D01S02Z053:                             IF RFnT2 > 0 THEN
+D01S03Z053:                                 RFnT2 := RFnT2 -1;
+D01S02Z055:                                 IF RFnT > 0 THEN
+D01S03Z055:                                     RFnT := RFnT -1
+                                            END
+                                        ELSE
+                                            GOTO D01S02Z055
+                                        END
+                                    ELSE
+                                        GOTO D01S02Z053
+                                    END
+                                ELSE
+                                    GOTO D01S02Z051
+                                END
+                            ELSE
+                                GOTO D01S02Z049
+                            END
+                        ELSE
+                            GOTO D01S02Z047
+                        END
+                    ELSE
+D01S01Z047:             IF AnfT = 5 THEN
+                            GOTO D01S02Z047
+                        ELSE
+D01S01Z049:                 IF AnfT = 4 THEN
+                                GOTO D01S02Z049
+                            ELSE
+D01S01Z051:                     IF AnfT = 3 THEN
+                                    GOTO D01S02Z051
+                                ELSE
+D01S01Z053:                         IF AnfT = 2 THEN
+                                        GOTO D01S02Z053
+                                    ELSE
+D01S01Z055:                             IF AnfT = 1 THEN
+                                            GOTO D01S02Z055
+                                        END
+                                    END
+                                END
+                            END
+                        END
+                    END
+                END
+            END.
+/*----------------------------------------------------------------------------*/
+
+SUBROUTINE LDP_Modul;  /* L05_4ldp.vv */
+/* VARIABLEN & AUSDRUECKE */ 
+
+D02S01Z001: RecW( 1, Ph1_ud ); RecW( 2, Ph2 );
+D02S01Z002: RecW( 11, Stau_K1 ); RecW( 12, Stau_K2 );
+D02S01Z003: RecW( 15, Stau_K5 );
+D02S01Z004: RecW( 21, Bem_K1K5 ); RecW( 22, Bem_K2 );
+D02S01Z005: RecW( 23, Bem_K3 );
+D02S01Z006: RecW( 30, WZÜ_K1K5 ); RecW( 31, WZÜ_K2 );
+D02S01Z007: RecW( 32, WZÜ_F22 ); RecW( 33, WZÜ_F24 );
+D02S01Z008: RecW( 102, Prio_Pue2 );
+D02S01Z010: RecW( 201, AnfT );
+D02S01Z011: RecW( 211, Rueckst_51 );
+D02S01Z012: RecW( 212, Rueckst_52 );
+D02S01Z013: TWart := T_Wart;
+D02S01Z014: RecW( 213, TWart ).
+/*----------------------------------------------------------------------------*/
+
+/* SIGNALPROGRAMM-ABHAENGIGE KONSTANTEN */ 
+            IF prog_aktiv = 1 THEN 
+                FB_PUE3 := 75;
+                SB_PUE3 := 37;
+                FB_PUE2a := 26;
+                SB_PUE2a := 53;
+                FB_PUE1 := 42;
+                SB_PUE1 := 65;
+                FB_PUE2b := 59;
+                SB_PUE2b := 84;
+                FB_PUE4 := 30;
+                SB_PUE4 := 80;
+                T_Folg_max := 10;
+                tgr_max_K1 := 15;
+                tgr_maxS_K1 := 10;
+                tgr_Bem_K2 := 25;
+                tgr_Bem_K3 := 25;
+                tgr_BemStau_K2 := 35;
+            END;
+
+/* VARIABLEN & AUSDRUECKE */ 
+            Bem_K1K5 := ( ztl(1) <= GZL ) OR ( ztl(5) <= GZL );
+            BemMax_K1 := Bem_K1K5 AND (t_grün( K1 ) < tgr_max_K1);
+            BemMaxS_K1 := Bem_K1K5 AND (t_grün( K1 ) < tgr_maxS_K1);
+            BemMax_K2 := Bem_K2 AND (t_grün( K2 ) < tgr_Bem_K2);
+            BemStau_K2 := Bem_K2 AND (t_grün( K2 ) < tgr_BemStau_K2);
+            BemMax_K3 := Bem_K3 AND (t_grün( K3 ) < tgr_Bem_K3);
+            Bem_K2 := ztl(2) <= GZL_K2;
+            Bem_K3 := ( ztl(31) <= GZL ) OR ( ztl(32) <= GZL );
+            Erl_Pue1 := ( t >= FB_PUE1 ) AND ( t <= SB_PUE1 );
+            Erl_Pue2a := ( t >= FB_PUE2a ) AND ( t <= SB_PUE2a );
+            Erl_Pue2b := ( t >= FB_PUE2b ) AND ( t <= SB_PUE2b );
+            Erl_Pue3 := ( t >= FB_PUE3 ) OR ( t <= SB_PUE3 );
+            Erl_Pue4 := ( t >= FB_PUE4 ) AND ( t <= SB_PUE4 );
+            Prio_Pue1 := (Stau_K1 AND (t_rot(K1) > 60));
+            Prio_Pue2 :=  NOT Ph2 AND (t_rot( F22 ) > MAXWZ_FG);
+            Tue_14 := Zz( F25, S51 );
+            Tue_24 := Zz( F22, S52 );
+            Tue_34 := Zz( K3, S51 );
+            Stau_K1 := Belegungszeit(18) > MAXBEL_1_5;
+            Stau_K2 := Belegungszeit( 28 ) > MAXBEL_2;
+            Stau_K5 := Belegungszeit( 5) > MAXBEL_1_5;
+            WZÜ_K1K5 := (t_rot(1) > MAXWZ_1_5)  OR (t_rot(5) > MAXWZ_1_5);
+            WZÜ_K2 := t_rot( K2 ) > MAXWZ_2;
+            WZÜ_F22 := t_rot( F22 ) > MAXWZ_FG;
+            WZÜ_F24 := t_rot( F24 ) > MAXWZ_FG;
+
+/* HAUPTPROGRAMM */ 
+
+S00Z002:    IF  NOT Init THEN
+S01Z002:        Init := 1;
+S01Z003:        Ph1 := 1
+            END;
+S00Z005:    IF t = SB_PUE3 THEN
+S01Z005:        IF Ph1 = 0 THEN
+S02Z006:            Ph1_ud := 1;
+S01Z008:            Ph1 := 0; Ph2 := 0
+                ELSE
+S01Z006:            Ph1_ud := 0;
+                    GOTO S01Z008
+                END
+            END;
+S00Z010:    GOSUB OEV_Modul;
+S00Z011:    IF PheA( 1 ) THEN
+S01Z011:        Ph1 := 1; Ph1_ud := 0;
+S01Z012:        IF RFnT <= tue_14 THEN
+S03Z012:            IF NOT (BemMaxS_K1) THEN
+S05Z013:                Pue( 1, 4 )
+                    END
+                ELSE
+S01Z014:            IF Erl_Pue3 THEN
+S02Z014:                IF RFnT >  (PuD(1,3) + tue_34) THEN
+S03Z014:                    IF NOT (BemMax_K1) THEN
+S03Z016:                        IF  NOT WZÜ_F22 THEN
+S05Z016:                            Pue( 1, 3 )
+                                ELSE
+S03Z018:                            IF NOT (BemMax_K1) THEN
+S05Z019:                                Pue( 1, 2 )
+                                    END
+                                END
+                            END
+                        ELSE
+S02Z015:                    IF Stau_K2 THEN
+                                GOTO S05Z016
+                            ELSE
+S01Z018:                        IF Erl_Pue2a OR Erl_Pue2b THEN
+S02Z018:                            IF RFnT >  (PuD(1,2) + tue_24) THEN
+                                        GOTO S03Z018
+                                    END
+                                END
+                            END
+                        END
+                    ELSE
+                        GOTO S01Z018
+                    END
+                END
+            END;
+S00Z021:    IF PheA( 2 ) THEN
+S01Z021:        Ph2 := 1;
+S01Z022:        IF RFnT <= tue_24 THEN
+S02Z022:            IF Erl_Pue4 THEN
+S05Z022:                Pue( 2, 4 )
+                    ELSE
+S02Z023:                IF Erl_Pue3 THEN
+S05Z023:                    Pue( 2, 3 )
+                        ELSE
+S02Z024:                    IF Erl_Pue1 THEN
+S05Z024:                        Pue( 2, 1 )
+                            END
+                        END
+                    END
+                ELSE
+S01Z026:            IF Erl_Pue3 THEN
+S02Z026:                IF RFnT >  (PuD(2,3) + tue_34) THEN
+S05Z026:                    Pue( 2, 3 )
+                        ELSE
+S01Z028:                    IF Erl_Pue1 THEN
+S02Z028:                        IF RFnT >  (PuD(2,1) + tue_14) THEN
+S05Z028:                            Pue( 2, 1 )
+                                END
+                            END
+                        END
+                    ELSE
+                        GOTO S01Z028
+                    END
+                END
+            END;
+S00Z031:    IF PheA( 3 ) THEN
+S01Z031:        IF NOT (BemMax_K2) THEN
+S01Z032:            IF NOT (BemMax_K3) THEN
+S01Z033:                IF RFnT <= tue_34 THEN
+S02Z033:                    IF Erl_Pue4 THEN
+S03Z033:                        IF Stau_K2 THEN
+S04Z033:                            IF NOT (BemStau_K2) THEN
+S05Z034:                                Pue( 3, 4 )
+                                    END
+                                ELSE
+                                    GOTO S05Z034
+                                END
+                            ELSE
+S01Z035:                        IF Erl_Pue1 THEN
+S02Z035:                            IF RFnT >  (PuD(3,1) + tue_14) THEN
+S03Z035:                                IF Ph1_ud THEN
+S05Z038:                                    Pue( 3, 1 )
+                                        ELSE
+S03Z036:                                    IF  NOT Bem_K2 AND NOT Bem_K3 THEN
+                                                GOTO S05Z038
+                                            ELSE
+S03Z037:                                        IF Prio_Pue1 AND NOT Stau_K2 THEN
+                                                    GOTO S05Z038
+                                                ELSE
+S03Z038:                                            IF t >= SB_PUE1 THEN
+                                                        GOTO S05Z038
+                                                    END
+                                                END
+                                            END
+                                        END
+                                    ELSE
+S01Z040:                                IF Erl_Pue2a THEN
+S02Z040:                                    IF RFnT >  (PuD(3,2) + tue_24) THEN
+S03Z040:                                        IF WZÜ_F22 THEN
+S04Z040:                                            IF  NOT Bem_K2 THEN
+S05Z041:                                                Pue( 3, 2 )
+                                                    ELSE
+S04Z041:                                                IF t >= SB_PUE2a THEN
+                                                            GOTO S05Z041
+                                                        END
+                                                    END
+                                                ELSE
+S01Z043:                                            IF Erl_Pue2b THEN
+S02Z043:                                                IF RFnT >  (PuD(3,2) + tue_24) THEN
+S03Z043:                                                    IF WZÜ_F22 THEN
+S05Z043:                                                        Pue( 3, 2 )
+                                                            END
+                                                        END
+                                                    END
+                                                END
+                                            ELSE
+                                                GOTO S01Z043
+                                            END
+                                        ELSE
+                                            GOTO S01Z043
+                                        END
+                                    END
+                                ELSE
+                                    GOTO S01Z040
+                                END
+                            END
+                        ELSE
+                            GOTO S01Z035
+                        END
+                    END
+                END
+            END;
+S00Z045:    IF PheA( 4 ) THEN
+S01Z045:        IF Abmeld THEN
+S02Z045:            Abmeld := 0;
+S02Z046:            IF NOT (RFnT  <= t_folg_max) THEN
+S02Z047:                IF Prio_Pue1 THEN
+S05Z047:                    Pue( 4, 1 )
+                        ELSE
+S02Z048:                    IF Erl_Pue3 THEN
+S05Z048:                        Pue( 4, 3 )
+                            ELSE
+S02Z049:                        IF Erl_Pue2a THEN
+S03Z049:                            IF WZÜ_F22 THEN
+S05Z049:                                Pue( 4, 2 )
+                                    ELSE
+S05Z050:                                Pue( 4, 3 )
+                                    END
+                                ELSE
+S02Z051:                            IF Erl_Pue1 THEN
+S05Z052:                                Pue( 4, 1 )
+                                    ELSE
+S02Z052:                                IF Erl_Pue2b THEN
+S03Z052:                                    IF Prio_Pue1 THEN
+S04Z052:                                        IF Ph2 THEN
+                                                    GOTO S05Z052
+                                                ELSE
+S05Z053:                                            Pue( 4, 2 )
+                                                END
+                                            ELSE
+                                                GOTO S05Z053
+                                            END
+                                        ELSE
+S05Z054:                                    Pue( 4, 3 )
+                                        END
+                                    END
+                                END
+                            END
+                        END
+                    END
+                END
+            END;
+S00Z056:    GOSUB LDP_Modul.
+/*----------------------------------------------------------------------------*/

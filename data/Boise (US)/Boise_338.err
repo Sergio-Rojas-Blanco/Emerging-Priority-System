@@ -1,0 +1,5 @@
+﻿                    Error	VEHICLE: Could not find attribute with ID DESLINK.
+                    Error	VEHICLE: Could not find attribute with ID DESIREDLINK.
+                    Error	VEHICLE: Could not find attribute with ID DESTLINK.
+                    Error	put_AttValue failed - the attribute NEXTLINK is not editable
+                     Note	Stop the simulation? : &Yes

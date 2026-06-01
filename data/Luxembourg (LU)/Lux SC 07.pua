@@ -1,0 +1,190 @@
+$SIGNALGRUPPEN
+CROSSIG                  VISSIM
+K1                       K1
+K2                       K2
+K3                       K3
+F21                      F21
+F23                      F23
+F25                      F25
+F27                      F27
+S51                      S51
+S52                      S52
+$
+K1                       1
+K2                       2
+K3                       3
+F21                      21
+F23                      23
+F25                      25
+F27                      27
+S51                      51
+S52                      52
+
+$ZZM
+$
+                            K1             K2             K3            F21            F23            F25            F27            S51            S52
+             K1           -127           -127           -127              4           -127           -127           -127           -127           -127
+             K2           -127           -127           -127           -127              4           -127           -127           -127           -127
+             K3           -127           -127           -127           -127           -127              4           -127           -127           -127
+            F21              4           -127           -127           -127           -127           -127           -127           -127           -127
+            F23           -127              4           -127           -127           -127           -127           -127           -127           -127
+            F25           -127           -127              5           -127           -127           -127           -127           -127           -127
+            F27           -127           -127           -127           -127           -127           -127           -127              5              5
+            S51           -127           -127           -127           -127           -127           -127              5           -127           -127
+            S52           -127           -127           -127           -127           -127           -127              5           -127           -127
+
+$PHASEN
+CROSSIG                  VISSIM
+1                        Phase_1
+2                        Phase_2
+3                        Phase_3
+4                        Phase_4
+5                        Phase_5
+6                        Phase_6
+7                        Phase_7
+8                        Phase_8
+9                        Phase_9
+10                       Phase_10
+11                       Phase_11
+12                       Phase_12
+13                       Phase_13
+14                       Phase_14
+15                       Phase_15
+16                       Phase_16
+17                       Phase_17
+18                       Phase_18
+19                       Phase_19
+20                       Phase_20
+21                       Phase_21
+22                       Phase_22
+$
+Phase_1                  K2	K3	
+  rot                    F23	F25	
+Phase_2                  F23	F25	
+  rot                    K2	K3	
+Phase_3                  
+  rot                    
+Phase_4                  
+  rot                    
+Phase_5                  
+  rot                    
+Phase_6                  
+  rot                    
+Phase_7                  
+  rot                    
+Phase_8                  
+  rot                    
+Phase_9                  
+  rot                    
+Phase_10                 
+  rot                    
+Phase_11                 K1	
+  rot                    F21	
+Phase_12                 F21	
+  rot                    K1	
+Phase_13                 
+  rot                    
+Phase_14                 
+  rot                    
+Phase_15                 
+  rot                    
+Phase_16                 
+  rot                    
+Phase_17                 
+  rot                    
+Phase_18                 
+  rot                    
+Phase_19                 
+  rot                    
+Phase_20                 
+  rot                    
+Phase_21                 F27	
+  rot                    S51	S52	
+Phase_22                 S51	S52	
+  rot                    F27	
+
+$STARTPHASE
+$
+Phase_1
+Phase_11
+Phase_21
+
+$PÜ
+PÜ-Name                : --- PÜ von 1 nach 2 (9 s) ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 1
+Übergangsdauer [s]     : 9
+Von Phase              : 1
+Nach Phase             : 2
+$
+K2                       -127              0
+K3                       -127              0
+F23                         4            127
+F25                         4            127
+
+$PÜ
+PÜ-Name                : --- PÜ von 2 nach 1 (10 s) ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 2
+Übergangsdauer [s]     : 10
+Von Phase              : 2
+Nach Phase             : 1
+$
+K2                          4            127
+K3                          5            127
+F23                      -127              0
+F25                      -127              0
+
+$PÜ
+PÜ-Name                : --- PÜ von 11 nach 12 (9 s) ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 3
+Übergangsdauer [s]     : 9
+Von Phase              : 11
+Nach Phase             : 12
+$
+K1                       -127              0
+F21                         4            127
+
+$PÜ
+PÜ-Name                : --- PÜ von 12 nach 11 (9 s) ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 4
+Übergangsdauer [s]     : 9
+Von Phase              : 12
+Nach Phase             : 11
+$
+K1                          4            127
+F21                      -127              0
+
+$PÜ
+PÜ-Name                : --- PÜ von 21 nach 22 (10 s) ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 5
+Übergangsdauer [s]     : 10
+Von Phase              : 21
+Nach Phase             : 22
+$
+F27                      -127              0
+S51                         4            127
+S52                         4            127
+
+$PÜ
+PÜ-Name                : --- PÜ von 22 nach 21 (10 s) ---
+PÜ-Kommentar           : 
+PÜ-Kommentar           : 
+PÜ_Nummer              : 6
+Übergangsdauer [s]     : 10
+Von Phase              : 22
+Nach Phase             : 21
+$
+F27                         5            127
+S51                      -127              0
+S52                      -127              0
+
+$ENDE

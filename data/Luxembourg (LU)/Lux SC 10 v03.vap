@@ -1,0 +1,237 @@
+PROGRAM L10_3; /* T:\5000\5260\Visvap\L10_3.vv */
+
+
+/* UNTERPROGRAMME */ 
+
+SUBROUTINE Oev_modul;  /* l10_3oev.vv */
+/* VARIABLEN & AUSDRUECKE */ 
+            Voran_S51 := Anf( 21 );
+            Voran_S52 := Anf( 31 );
+            Anm_S51 := Anf( 22 );
+            Anm_S52 := Anf( 32 );
+            Abm_S51 := Anf( 23 );
+            Abm_S52 := Anf( 33 );
+            Anm_B55 := Anf( 41 );
+            Abm_B55 := Anf( 42 );
+
+D01S00Z001: IF Voran_S51 THEN
+D01S01Z001:     VAN_S51:=1
+            END;
+D01S00Z003: IF Anm_S51 THEN
+D01S01Z003:     AN_S51:=1;
+D01S02Z003:     VAN_S51:=0
+            END;
+D01S00Z005: IF Abm_S51 THEN
+D01S01Z005:     AN_S51:=0
+            END;
+D01S00Z008: IF Voran_S52 THEN
+D01S01Z008:     VAN_S52:=1
+            END;
+D01S00Z010: IF Anm_S52 THEN
+D01S01Z010:     AN_S52:=1;
+D01S02Z010:     VAN_S52:=0
+            END;
+D01S00Z012: IF Abm_S52 THEN
+D01S01Z012:     AN_S52:=0
+            END;
+D01S00Z014: IF Anm_B55 THEN
+D01S01Z014:     AN_B55:=1
+            END;
+D01S00Z016: IF Abm_B55 THEN
+D01S01Z016:     AN_B55:=0
+            END;
+D01S00Z019: RecW( VAN_S51, 51 );  RecW( VAN_S52, 52 ).
+/*----------------------------------------------------------------------------*/
+
+/* SIGNALPROGRAMM-ABHAENGIGE KONSTANTEN */ 
+            IF prog_aktiv = 1 THEN 
+                T2 := 32;
+                T3 := 68;
+                T4 := 76;
+                T5 := 78;
+                MAXTG_K3 := 28;
+                MAXTG_K4 := 15;
+                MAXTG_K5 := 15;
+                MAXTG_K7 := 10;
+                erfTG_K3 := 24;
+                erfTG_K4 := 15;
+                erfTG_K7 := 10;
+                norTG_K3 := 15;
+            ELSE IF prog_aktiv = 2 THEN 
+                T2 := 32;
+                T3 := 63;
+                T4 := 76;
+                T5 := 78;
+                MAXTG_K3 := 20;
+                MAXTG_K4 := 17;
+                MAXTG_K5 := 15;
+                MAXTG_K7 := 10;
+                erfTG_K3 := 20;
+                erfTG_K4 := 17;
+                erfTG_K7 := 10;
+                norTG_K3 := 15;
+            END END;
+
+/* VARIABLEN & AUSDRUECKE */ 
+            ZL_K1 := (Ztl( 1 ) < 3);
+            ZL_K2 := (Ztl( 2 ) < 4) OR (Ztl( 3 ) < 4);
+            ZL_K3 := Ztl( 4 ) < 3;
+            ZL_K4 := (Ztl( 25 ) < 3) OR (Ztl( 26 ) < 3) OR (Ztl( 27 ) < 3);
+            ZL_K7 := Ztl( 32 ) < 3;
+            Anfo_Phase_3 := (Bzt( 5 )>0) OR (Bzt( 6 ) >0) OR (Bzt( 7 )>0);
+            Anfo_Phase_4 := Bzt( 12 ) >0;
+            Anfo_Phase_6 := (Bzt( 5 )>0) OR (Bzt( 6 ) >0) OR (Bzt( 7 )>0) OR (Bzt( 12 ) >0);
+
+/* HAUPTPROGRAMM */ 
+
+S00Z001:    IF  NOT Init THEN
+S01Z001:        Init := 1;
+S01Z002:        Start( SimZeit );
+S01Z003:        Setze_Prog( 1 )
+            END;
+S00Z005:    IF SimZeit = 5000 THEN
+S01Z005:        Setze_Prog( 2 )
+            END;
+S00Z007:    GOSUB Oev_modul;
+S00Z008:    IF Phase_läuft( 1 ) THEN
+S01Z008:        IF NOT (T_grün( 3 ) < norTG_K3) THEN
+S01Z009:            IF (AN_S51) OR (AN_S52) THEN
+S02Z009:                IF ZL_K1 THEN
+S03Z010:                    IF T_grün( 3 ) < erfTG_K3 THEN
+S04Z010:                        IF NOT ((T2 <= T) AND (T < T3)) THEN
+S05Z011:                            Pue( 1, 2 )
+                                END
+                            ELSE
+                                GOTO S05Z011
+                            END
+                        ELSE
+S02Z010:                    IF ZL_K3 THEN
+                                GOTO S03Z010
+                            ELSE
+                                GOTO S05Z011
+                            END
+                        END
+                    ELSE
+S01Z012:                IF ZL_K1 THEN
+S02Z013:                    IF T_grün( 3 ) < MAXTG_K3 THEN
+S03Z013:                        IF NOT ((T2 <= T) AND (T < T3)) THEN
+S05Z014:                            Pue( 1, 2)
+                                END
+                            ELSE
+                                GOTO S05Z014
+                            END
+                        ELSE
+S01Z013:                    IF ZL_K3 THEN
+                                GOTO S02Z013
+                            ELSE
+                                GOTO S05Z014
+                            END
+                        END
+                    END
+                END
+            ELSE
+S00Z015:        IF Phase_läuft( 2 ) THEN
+S01Z015:            IF NOT ((T2 <= T) AND (T < T4)) THEN
+S01Z016:                IF AN_B55>0 THEN
+S02Z016:                    IF ZL_K2 THEN
+S03Z016:                        IF NOT ((T2 <= T) AND (T < T5)) THEN
+S03Z017:                            IF Anfo_Phase_3 THEN
+S05Z017:                                Pue( 2, 3 )
+                                    ELSE
+S05Z018:                                Pue( 2, 4 )
+                                    END
+                                END
+                            ELSE
+                                GOTO S03Z017
+                            END
+                        ELSE
+S01Z019:                    IF Anfo_Phase_6 THEN
+S02Z019:                        IF ZL_K2 THEN
+S03Z019:                            IF NOT ((T2 <= T) AND (T < T5)) THEN
+S05Z020:                                Pue( 2, 6 )
+                                    END
+                                ELSE
+                                    GOTO S05Z020
+                                END
+                            ELSE
+S05Z021:                        Pue( 2, 1 )
+                            END
+                        END
+                    END
+                ELSE
+S00Z022:            IF Phase_läuft( 3 ) THEN
+S01Z023:                IF (AN_S51) OR (AN_S52) THEN
+S02Z023:                    IF ZL_K4 THEN
+S03Z023:                        IF NOT (T_grün( 4 ) < erfTG_K4) THEN
+S05Z024:                            Pue( 3, 4 )
+                                END
+                            ELSE
+                                GOTO S05Z024
+                            END
+                        ELSE
+S01Z025:                    IF Anfo_Phase_4 THEN
+S02Z025:                        IF ZL_K4 THEN
+S04Z025:                            IF NOT (T_grün( 4 ) < MAXTG_K4) THEN
+S04Z026:                                IF NOT (T_grün( 5 ) < MAXTG_K5) THEN
+S05Z027:                                    Pue( 3, 4 )
+                                        END
+                                    END
+                                ELSE
+                                    GOTO S05Z027
+                                END
+                            ELSE
+                                GOTO S05Z027
+                            END
+                        END
+                    ELSE
+S00Z028:                IF Phase_läuft( 4 ) THEN
+S01Z030:                    IF ZL_K7 THEN
+S04Z031:                        IF NOT (T_grün( 7 ) < MAXTG_K7) THEN
+S05Z032:                            Pue( 4, 1 )
+                                END
+                            ELSE
+                                GOTO S05Z032
+                            END
+                        ELSE
+S00Z033:                    IF Phase_läuft( 5 ) THEN
+S05Z033:                        Pue( 5, 1 )
+                            ELSE
+S00Z034:                        IF Phase_läuft( 6 ) THEN
+S01Z034:                            IF (AN_S51) OR (AN_S52) THEN
+S02Z034:                                IF ZL_K4 THEN
+S03Z034:                                    IF NOT (T_grün( 4 ) < erfTG_K4) THEN
+S05Z035:                                        Pue( 6, 5 )
+                                            END
+                                        ELSE
+S02Z036:                                    IF ZL_K7 THEN
+S03Z036:                                        IF NOT (T_grün( 7 ) < erfTG_K7) THEN
+S05Z037:                                            Pue( 6, 5 )
+                                                END
+                                            ELSE
+                                                GOTO S05Z037
+                                            END
+                                        END
+                                    ELSE
+S01Z038:                                IF ZL_K4 THEN
+S04Z038:                                    IF NOT (T_grün( 4 ) < MAXTG_K4) THEN
+S04Z039:                                        IF NOT (T_grün( 5 ) < MAXTG_K5) THEN
+S05Z040:                                            Pue( 6, 5 )
+                                                END
+                                            END
+                                        ELSE
+S01Z041:                                    IF ZL_K7 THEN
+S04Z042:                                        IF NOT (T_grün( 7 ) < MAXTG_K7) THEN
+S05Z043:                                            Pue( 6, 5 )
+                                                END
+                                            ELSE
+                                                GOTO S05Z043
+                                            END
+                                        END
+                                    END
+                                END
+                            END
+                        END
+                    END
+                END
+            END.
+/*----------------------------------------------------------------------------*/

@@ -1,0 +1,127 @@
+PROGRAM L08_3_hp; /* T:\5000\5260\Visvap\L08_3_hp.vv */
+
+
+/* UNTERPROGRAMME */ 
+
+SUBROUTINE Oev_Modul;  /* l08_oev.vv */
+/* VARIABLEN & AUSDRUECKE */ 
+            Voran_S51 := Anf( 21 );
+            Voran_S52 := Anf( 31 );
+            Anm_S51 := Anf( 22 );
+            Anm_S52 := Anf( 32 );
+            Abm_S51 := Anf( 23 );
+            Abm_S52 := Anf( 33 );
+            Anm_BW := Anf( 41 );
+            Abm_BW := Anf( 42 );
+            Anm_BO := Anf( 50 ) or Anf( 51 );
+            Abm_BO := Anf( 52 ) or Anf( 53 );
+
+D01S00Z001: IF Anm_BW THEN
+D01S01Z001:     AN_BW := AN_BW + 1
+            END;
+D01S00Z003: IF Abm_BW THEN
+D01S01Z003:     AN_BW := AN_BW - 1
+            END;
+D01S00Z005: IF Anm_BO THEN
+D01S01Z005:     AN_BO := AN_BO + 1
+            END;
+D01S00Z007: IF Abm_BO THEN
+D01S01Z007:     AN_BO := AN_BO - 1
+            END;
+D01S00Z009: IF Voran_S51 THEN
+D01S01Z009:     VAN_S51:=1
+            END;
+D01S00Z011: IF Anm_S51 THEN
+D01S01Z011:     AN_S51:=1;
+D01S02Z011:     VAN_S51:=0
+            END;
+D01S00Z013: IF Abm_S51 THEN
+D01S01Z013:     AN_S51:=0
+            END;
+D01S00Z015: IF Voran_S52 THEN
+D01S01Z015:     VAN_S52:=1
+            END;
+D01S00Z017: IF Anm_S52 THEN
+D01S01Z017:     AN_S52:=1;
+D01S02Z017:     VAN_S52:=0
+            END;
+D01S00Z019: IF Abm_S52 THEN
+D01S01Z019:     AN_S52:=0
+            END.
+/*----------------------------------------------------------------------------*/
+
+/* SIGNALPROGRAMM-ABHAENGIGE KONSTANTEN */ 
+            IF prog_aktiv = 1 THEN 
+                T1 := 11;
+                T2 := 55;
+                T3 := 75;
+                T4 := 56;
+                T5 := 89;
+                norTg_K1 := 20;
+                MAXTG_K3 := 20;
+                MAXTGS_K3 := 10;
+                GZL := 3;
+            END;
+
+/* VARIABLEN & AUSDRUECKE */ 
+            Anfo_Phase_2 := (Bzt( 5 )>0) OR (Bzt( 6 )>0) OR (Bzt( 10 )>0) OR (Bzt( 27 )>0) OR (Bzt( 29 )>0);
+            ZL_K1 := (Ztl( 1 ) < GZL) OR (Ztl( 2 ) < GZL) OR (Ztl( 3 ) < GZL);
+            ZL_K2 := (Ztl( 5 ) < GZL) OR (Ztl( 6 ) < GZL);
+
+/* HAUPTPROGRAMM */ 
+
+S00Z001:    GOSUB Oev_Modul;
+S00Z002:    IF Phase_läuft( 1 ) THEN
+S01Z002:        IF NOT ((T1<=T) AND (T<T2)) THEN
+S01Z003:            IF NOT (Tg( 1 ) <= norTg_K1) THEN
+S01Z004:                IF NOT ((VAN_S51) OR (VAN_S52) OR  (AN_S51) OR (AN_S52)) THEN
+S01Z005:                    IF Anfo_Phase_2 THEN
+S02Z005:                        IF ZL_K1 THEN
+S03Z005:                            IF NOT (T<T3) THEN
+S04Z006:                                IF (T4<=T) AND (T<T5) THEN
+S05Z006:                                    Pue( 1, 2 )
+                                        END
+                                    END
+                                ELSE
+                                    GOTO S04Z006
+                                END
+                            END
+                        END
+                    END
+                END
+            ELSE
+S00Z008:        IF Phase_läuft( 2 ) THEN
+S01Z008:            IF (VAN_S51) OR (VAN_S52) OR  (AN_S51) OR (AN_S52) THEN
+S02Z008:                IF ZL_K2 THEN
+S03Z009:                    IF NOT (T_grün( 3 )  < MAXTGS_K3) THEN
+S05Z010:                        Pue( 2, 1 )
+                            END
+                        ELSE
+S02Z009:                    IF AN_BW OR AN_BO THEN
+                                GOTO S03Z009
+                            ELSE
+                                GOTO S05Z010
+                            END
+                        END
+                    ELSE
+S01Z011:                IF ZL_K2 THEN
+S02Z011:                    IF NOT ((T4<=T) AND (T<T5)) THEN
+S02Z012:                        IF AN_BW > 0 THEN
+S03Z013:                            IF NOT (T_grün( 3 ) < MAXTG_K3) THEN
+S05Z014:                                Pue( 2, 1 )
+                                    END
+                                ELSE
+S02Z013:                            IF AN_BO > 0 THEN
+                                        GOTO S03Z013
+                                    ELSE
+                                        GOTO S05Z014
+                                    END
+                                END
+                            END
+                        ELSE
+                            GOTO S02Z012
+                        END
+                    END
+                END
+            END.
+/*----------------------------------------------------------------------------*/

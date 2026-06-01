@@ -1,0 +1,16 @@
+﻿                  Warning	Desired Speed Decision 16: 80 km/h ANM is located only 2.417 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 16
+                  Warning	Desired Speed Decision 17: 80 km/h ANM is located only 2.417 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 17
+                  Warning	Desired Speed Decision 103: 48 km/h ANM is located only 5.484 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 103
+                  Warning	Desired Speed Decision 178: 48 km/h ANM is located only 5.310 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 178
+                  Warning	Desired Speed Decision 243: 48 km/h ANM is located only 2.646 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 243
+                  Warning	Desired Speed Decision 411: 64 km/h ANM is located only 4.477 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 411
+                  Warning	Desired Speed Decision 412: 64 km/h ANM is located only 4.477 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 412
+                  Warning	Desired Speed Decision 498: 48 km/h ANM is located only 2.559 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 498
+                  Warning	Desired Speed Decision 501: 48 km/h ANM is located only 4.345 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 501
+                  Warning	Desired Speed Decision 519: 48 km/h ANM is located only 2.559 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 519
+                  Warning	Desired Speed Decision 574: 80 km/h ANM is located only 1.750 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 574
+                  Warning	Desired Speed Decision 575: 80 km/h ANM is located only 1.750 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 575
+                  Warning	Desired Speed Decision 646: 48 km/h ANM is located only 5.485 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 646
+                  Warning	Desired Speed Decision 786: 48 km/h ANM is located only 5.357 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 786
+                  Warning	Desired Speed Decision 787: 48 km/h ANM is located only 5.357 m upstream of the first connector.	Network object type: Desired Speed Decision	Network object keys: 787
+                  Warning	The link gradient experienced by vehicles depends on the link attribute "Gradient" according to the network settings. This attribute has the value zero for all links but some links have a Z-offset. These Z-coordinates are ignored for the vehicle behavior. If the Z-coordinates are meant to affect the vehicles, please select that option in the network settings.

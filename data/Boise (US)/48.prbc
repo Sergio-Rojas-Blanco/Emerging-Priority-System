@@ -1,0 +1,339 @@
+{
+  "Controller": {
+    "ExecutionFrequency": 1,
+    "OffsetReference": "LeadingStartOfGreen",
+    "PatternSchedule": {
+      "PatternScheduleItems": [
+        {
+          "Pattern": 1,
+          "StartTime": 0
+        }
+      ]
+    },
+    "Patterns": [
+      {
+        "CycleLength": 600,
+        "ID": 1,
+        "MaxGreenMode": "UseMaxGreen",
+        "Offset": 200,
+        "PedestrianSignalGroupsInPattern": [
+          {
+            "PedRecall": true,
+            "PedestrianSignalGroup": 102
+          },
+          {
+            "PedRecall": true,
+            "PedestrianSignalGroup": 104
+          },
+          {
+            "PedRecall": true,
+            "PedestrianSignalGroup": 106
+          },
+          {
+            "PedRecall": true,
+            "PedestrianSignalGroup": 108
+          }
+        ],
+        "PermissiveMode": "SingleBand",
+        "UseExplicitForceOffs": false,
+        "UseExplicitPermissivePeriods": false,
+        "VehicleSignalGroupsInPattern": [
+          {
+            "Coordinated": true,
+            "ForceOff": 550,
+            "InhibitMaxGreen": false,
+            "MaxRecall": true,
+            "MinRecall": true,
+            "OverridingMaxGreen": 0,
+            "OverridingMinGreen": 0,
+            "OverridingVehExtension": 0,
+            "PermissivePeriodEnd": 400,
+            "PermissivePeriodStart": 250,
+            "Split": 300,
+            "UseMaxGreen2": false,
+            "UseMaxGreen3": false,
+            "VehicleSignalGroup": 2
+          },
+          {
+            "Coordinated": false,
+            "ForceOff": 250,
+            "InhibitMaxGreen": false,
+            "MaxRecall": true,
+            "MinRecall": true,
+            "OverridingMaxGreen": 0,
+            "OverridingMinGreen": 0,
+            "OverridingVehExtension": 0,
+            "PermissivePeriodEnd": 250,
+            "PermissivePeriodStart": 250,
+            "Split": 300,
+            "UseMaxGreen2": false,
+            "UseMaxGreen3": false,
+            "VehicleSignalGroup": 4
+          },
+          {
+            "Coordinated": true,
+            "ForceOff": 550,
+            "InhibitMaxGreen": false,
+            "MaxRecall": true,
+            "MinRecall": true,
+            "OverridingMaxGreen": 0,
+            "OverridingMinGreen": 0,
+            "OverridingVehExtension": 0,
+            "PermissivePeriodEnd": 400,
+            "PermissivePeriodStart": 250,
+            "Split": 300,
+            "UseMaxGreen2": false,
+            "UseMaxGreen3": false,
+            "VehicleSignalGroup": 6
+          },
+          {
+            "Coordinated": false,
+            "ForceOff": 250,
+            "InhibitMaxGreen": false,
+            "MaxRecall": true,
+            "MinRecall": true,
+            "OverridingMaxGreen": 0,
+            "OverridingMinGreen": 0,
+            "OverridingVehExtension": 0,
+            "PermissivePeriodEnd": 250,
+            "PermissivePeriodStart": 250,
+            "Split": 300,
+            "UseMaxGreen2": false,
+            "UseMaxGreen3": false,
+            "VehicleSignalGroup": 8
+          }
+        ]
+      }
+    ],
+    "PedestrianDetectors": [
+      {
+        "CalledSGs": [
+          102
+        ],
+        "ID": 102
+      },
+      {
+        "CalledSGs": [
+          104
+        ],
+        "ID": 104
+      },
+      {
+        "CalledSGs": [
+          106
+        ],
+        "ID": 106
+      },
+      {
+        "CalledSGs": [
+          108
+        ],
+        "ID": 108
+      }
+    ],
+    "PedestrianSignalGroups": [
+      {
+        "FlashingDontWalk": 90,
+        "ID": 102,
+        "Parent": 2,
+        "PedRecall": false,
+        "Walk": 50
+      },
+      {
+        "FlashingDontWalk": 90,
+        "ID": 104,
+        "Parent": 4,
+        "PedRecall": false,
+        "Walk": 50
+      },
+      {
+        "FlashingDontWalk": 90,
+        "ID": 106,
+        "Parent": 6,
+        "PedRecall": false,
+        "Walk": 50
+      },
+      {
+        "FlashingDontWalk": 90,
+        "ID": 108,
+        "Parent": 8,
+        "PedRecall": false,
+        "Walk": 50
+      }
+    ],
+    "Sequence": {
+      "BarrierGroups": [
+        {
+          "RingGroups": [
+            {
+              "VehicleSignalGroups": [
+                2
+              ]
+            },
+            {
+              "VehicleSignalGroups": [
+                6
+              ]
+            }
+          ]
+        },
+        {
+          "RingGroups": [
+            {
+              "VehicleSignalGroups": [
+                4
+              ]
+            },
+            {
+              "VehicleSignalGroups": [
+                8
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "VehicleDetectors": [
+      {
+        "CalledSGs": [
+          2
+        ],
+        "ExtendedSGs": [
+          2
+        ],
+        "ID": 2
+      },
+      {
+        "CalledSGs": [
+          4
+        ],
+        "ExtendedSGs": [
+          4
+        ],
+        "ID": 4
+      },
+      {
+        "CalledSGs": [
+          6
+        ],
+        "ExtendedSGs": [
+          6
+        ],
+        "ID": 6
+      },
+      {
+        "CalledSGs": [
+          8
+        ],
+        "ExtendedSGs": [
+          8
+        ],
+        "ID": 8
+      }
+    ],
+    "VehicleOverlapSignalGroups": [],
+    "VehicleSignalGroups": [
+      {
+        "DualEntry": true,
+        "ID": 2,
+        "MaxGreen1": 250,
+        "MaxGreen2": 0,
+        "MaxGreen3": 0,
+        "MaxRecall": false,
+        "MinGreen": 40,
+        "MinRecall": false,
+        "Name": "",
+        "RedClearance": 10,
+        "StartUp": true,
+        "VehExtension": 30,
+        "Yellow": 40
+      },
+      {
+        "DualEntry": true,
+        "ID": 4,
+        "MaxGreen1": 250,
+        "MaxGreen2": 0,
+        "MaxGreen3": 0,
+        "MaxRecall": false,
+        "MinGreen": 40,
+        "MinRecall": false,
+        "Name": "",
+        "RedClearance": 10,
+        "StartUp": false,
+        "VehExtension": 30,
+        "Yellow": 40
+      },
+      {
+        "DualEntry": true,
+        "ID": 6,
+        "MaxGreen1": 250,
+        "MaxGreen2": 0,
+        "MaxGreen3": 0,
+        "MaxRecall": false,
+        "MinGreen": 40,
+        "MinRecall": false,
+        "Name": "",
+        "RedClearance": 10,
+        "StartUp": true,
+        "VehExtension": 30,
+        "Yellow": 40
+      },
+      {
+        "DualEntry": true,
+        "ID": 8,
+        "MaxGreen1": 250,
+        "MaxGreen2": 0,
+        "MaxGreen3": 0,
+        "MaxRecall": false,
+        "MinGreen": 40,
+        "MinRecall": false,
+        "Name": "",
+        "RedClearance": 10,
+        "StartUp": false,
+        "VehExtension": 30,
+        "Yellow": 40
+      }
+    ]
+  },
+  "FormatVersion": [
+    1,
+    0
+  ],
+  "GUI": {
+    "Notes": "Converted from NEMA",
+    "SequencePresentation": {
+      "BarrierGroupPresentations": [
+        {
+          "RightMargin": 0,
+          "RingGroupPresentations": [
+            {
+              "SignalGroupOffsets": [
+                0
+              ]
+            },
+            {
+              "SignalGroupOffsets": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "RightMargin": 14,
+          "RingGroupPresentations": [
+            {
+              "SignalGroupOffsets": [
+                0
+              ]
+            },
+            {
+              "SignalGroupOffsets": [
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

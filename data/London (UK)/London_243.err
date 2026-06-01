@@ -1,0 +1,4 @@
+﻿                  Warning	Simulation second 2.900: Vehicle 12 (on PT line "20: 380;380 WB;>;timeprofile 1;1") left link "2084" without stopping at PT stop "4: ID 3557B".	Network object type: Vehicle	Network object keys: 12
+                  Warning	Simulation second 84.700: Vehicle 276 (on PT line "25: 472;472 EB;>;timeprofile 1;1") left link "2807" without stopping at PT stop "243: ID 12318A".	Network object type: Vehicle	Network object keys: 276
+                  Warning	Simulation second 150.900: After 60.000 seconds of waiting for lane change the vehicle 100 (on Static Vehicle Route "334 - 36502: ANM zone 6051") was removed from link "11934" at position 8,567 m.	Network object type: Vehicle	Network object keys: 100
+                  Warning	Simulation second 153.500: Vehicle 12 (on PT line "20: 380;380 WB;>;timeprofile 1;1") left link "2205" without stopping at PT stop "628: ID 16755B".	Network object type: Vehicle	Network object keys: 12

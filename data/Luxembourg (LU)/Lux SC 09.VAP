@@ -1,0 +1,179 @@
+PROGRAM L09; /* T:\5000\5260\Visvap\L09.vv */
+
+
+/* UNTERPROGRAMME */ 
+
+SUBROUTINE Oev_Modul;  /* l09_oev.vv */
+/* VARIABLEN & AUSDRUECKE */ 
+            Voran_S51 := Anf( 30 );
+            Voran_S53 := Anf( 40 );
+            Anm_S51 := Anf( 31 );
+            Anm_S53 := Anf( 41 );
+            An_Bus := (Anf( 10 )) or (Anf( 11 ));
+            Abm_S51 := Anf( 32 );
+            Abm_S53 := Anf( 42 );
+            Abm_Bus := (Anf( 20 )) or (Anf( 21 ));
+
+D01S00Z001: IF Voran_S51 THEN
+D01S01Z001:     VAN_S51:=1
+            END;
+D01S00Z003: IF Anm_S51 THEN
+D01S01Z003:     AN_S51:=1;
+D01S02Z003:     VAN_S51:=0
+            END;
+D01S00Z005: IF Abm_S51 THEN
+D01S01Z005:     AN_S51:=0
+            END;
+D01S00Z007: IF Voran_S53 THEN
+D01S01Z007:     VAN_S53:=1
+            END;
+D01S00Z009: IF Anm_S53 THEN
+D01S01Z009:     AN_S53:=1;
+D01S02Z009:     VAN_S53:=0
+            END;
+D01S00Z011: IF Abm_S53 THEN
+D01S01Z011:     AN_S53:=0
+            END;
+D01S00Z013: IF An_Bus THEN
+D01S01Z013:     AN_43:=1
+            END;
+D01S00Z015: IF Abm_Bus THEN
+D01S01Z015:     AN_43:=0
+            END.
+/*----------------------------------------------------------------------------*/
+
+/* SIGNALPROGRAMM-ABHAENGIGE KONSTANTEN */ 
+            IF prog_aktiv = 1 THEN 
+                T1 := 29;
+                T2 := 68;
+                T3 := 78;
+                T4 := 73;
+                T5 := 88;
+                T6 := 12;
+                T7 := 17;
+                MAXTG_K3 := 18;
+                MAXTG_K4 := 5;
+                norTg_K1 := 40;
+                erfTG_K3 := 15;
+            ELSE IF prog_aktiv = 2 THEN 
+                T1 := 29;
+                T2 := 68;
+                T3 := 73;
+                T4 := 73;
+                T5 := 78;
+                T6 := 7;
+                T7 := 12;
+                MAXTG_K3 := 20;
+                MAXTG_K4 := 7;
+                norTg_K1 := 40;
+                erfTG_K3 := 20;
+            END END;
+
+/* VARIABLEN & AUSDRUECKE */ 
+            ZL_K1 := (Ztl( 1 ) < 4) or (Ztl( 2 ) < 4) or (Ztl( 3 ) < 4);
+            ZL_K3 := (Ztl( 5 ) < 3) or (Ztl( 6 ) < 3) or (Ztl( 7 ) < 3);
+            ZL_K4 := (Ztl( 22 ) < 3) or (Ztl( 23 ) < 3);
+            Anfo_Phase_2 := (Bzt( 5 ) >0) or (Bzt( 6 )>0) or (Bzt( 7 )>0);
+            Anfo_Phase_3 := Anf( 22 ) or  (Belegungszeit( 22 ) > 0);
+
+/* HAUPTPROGRAMM */ 
+
+S00Z001:    IF  NOT Init THEN
+S01Z001:        Init := 1;
+S01Z002:        Start( SimZeit );
+S01Z003:        Setze_Prog( 1 )
+            END;
+S00Z005:    IF SimZeit = 5000 THEN
+S01Z005:        Setze_Prog( 2 )
+            END;
+S00Z007:    GOSUB Oev_Modul;
+S00Z008:    IF Phase_läuft( 1 ) THEN
+S01Z008:        IF NOT ((T1 <= T) AND (T < T2)) THEN
+S01Z009:            IF NOT (Tg( 1 ) <= norTg_K1) THEN
+S01Z010:                IF (VAN_S51) OR (VAN_S53) THEN
+S02Z011:                    IF NOT ((T1 <= T) AND (T < T3)) THEN
+S01Z013:                        IF Anfo_Phase_2 THEN
+S03Z013:                            IF (T1 <= T) AND (T < T3) THEN
+S04Z013:                                IF NOT (ZL_K1) THEN
+S04Z014:                                    IF (T4 <= T) AND (T < T5) THEN
+S05Z014:                                        Pue( 1, 2)
+                                            END
+                                        END
+                                    ELSE
+                                        GOTO S04Z014
+                                    END
+                                ELSE
+S01Z016:                            IF Anfo_Phase_3 THEN
+S02Z016:                                IF (T1 <= T) AND (T < T3) THEN
+S03Z016:                                    IF NOT (ZL_K1) THEN
+S04Z017:                                        IF (T6 <= T) AND (T < T7) THEN
+S05Z017:                                            Pue( 1,3 )
+                                                END
+                                            END
+                                        ELSE
+                                            GOTO S04Z017
+                                        END
+                                    ELSE
+S01Z017:                                IF AN_43 THEN
+                                            GOTO S04Z017
+                                        ELSE
+S02Z019:                                    IF (T1 <= T) AND (T < T3) THEN
+S03Z019:                                        IF NOT (ZL_K1) THEN
+S05Z020:                                            Pue( 1, 2 )
+                                                END
+                                            ELSE
+                                                GOTO S05Z020
+                                            END
+                                        END
+                                    END
+                                END
+                            END
+                        ELSE
+S01Z011:                    IF (AN_S51) OR (AN_S53) THEN
+                                GOTO S02Z011
+                            ELSE
+                                GOTO S01Z013
+                            END
+                        END
+                    END
+                END
+            ELSE
+S00Z022:        IF Phase_läuft( 2 ) THEN
+S01Z023:            IF T_grün( 3 ) < erfTG_K3 THEN
+S02Z023:                IF NOT (ZL_K3) THEN
+S01Z025:                    IF (AN_S51 = 0) AND (AN_S53 = 0) THEN
+S02Z025:                        IF ZL_K3 THEN
+S03Z025:                            IF NOT (T_grün( 3 ) < MAXTG_K3) THEN
+S03Z026:                                IF Anfo_Phase_3 THEN
+S05Z026:                                    Pue( 2, 3 )
+                                        ELSE
+S05Z027:                                    Pue( 2, 1 )
+                                        END
+                                    END
+                                ELSE
+                                    GOTO S03Z026
+                                END
+                            ELSE
+                                GOTO S03Z026
+                            END
+                        END
+                    ELSE
+                        GOTO S01Z025
+                    END
+                ELSE
+S00Z028:            IF Phase_läuft( 3 ) THEN
+S01Z028:                IF (AN_S51 = 0) OR (AN_S53 = 0) THEN
+S03Z028:                    IF ZL_K4 THEN
+S04Z028:                        IF NOT (T_grün( 4 ) < MAXTG_K4) THEN
+S05Z029:                            Pue( 3, 1 )
+                                END
+                            ELSE
+                                GOTO S05Z029
+                            END
+                        ELSE
+                            GOTO S05Z029
+                        END
+                    END
+                END
+            END.
+/*----------------------------------------------------------------------------*/

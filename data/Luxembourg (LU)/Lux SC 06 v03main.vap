@@ -1,0 +1,164 @@
+PROGRAM L06_3hp; /* U:\DEMO_SIM\Demo_Intern\Aktuell\Luxembourg\pua_210\L06_3hp.vv */
+
+CONST 
+            GZL = 4,
+            STAU_BZT = 7,
+            VERSATZ_K11 = 9;
+
+/* UNTERPROGRAMME */ 
+
+SUBROUTINE EB_MODUL;  /* L06_EB.vv */
+D01S00Z001: IF FB1 > SE1 THEN
+D01S01Z001:   IF T >= FB1 THEN
+D01S03Z002:     Erl1 := 1
+              ELSE
+D01S01Z002:     IF T < SE1 THEN
+                  GOTO D01S03Z002
+                ELSE
+D01S03Z003:       Erl1 := 0
+                END
+              END
+            ELSE
+D01S00Z002:   IF T >= FB1 THEN
+                GOTO D01S01Z002
+              ELSE
+                GOTO D01S03Z003
+              END
+            END;
+D01S00Z005: IF FB3 > SE3 THEN
+D01S01Z005:   IF T >= FB3 THEN
+D01S03Z006:     Erl3 := 1
+              ELSE
+D01S01Z006:     IF T < SE3 THEN
+                  GOTO D01S03Z006
+                ELSE
+D01S03Z007:       Erl3 := 0
+                END
+              END
+            ELSE
+D01S00Z006:   IF T >= FB3 THEN
+                GOTO D01S01Z006
+              ELSE
+                GOTO D01S03Z007
+              END
+            END;
+D01S00Z009: IF FE1 > SE1 THEN
+D01S01Z009:   IF T >= FE1 THEN
+D01S03Z010:     Verl1 := 1
+              ELSE
+D01S01Z010:     IF T < SE1 THEN
+                  GOTO D01S03Z010
+                ELSE
+D01S03Z011:       Verl1 := 0
+                END
+              END
+            ELSE
+D01S00Z010:   IF T >= FE1 THEN
+                GOTO D01S01Z010
+              ELSE
+                GOTO D01S03Z011
+              END
+            END;
+D01S00Z013: IF FE3 > SE3 THEN
+D01S01Z013:   IF T >= FE3 THEN
+D01S03Z014:     Verl3 := 1
+              ELSE
+D01S01Z014:     IF T < SE3 THEN
+                  GOTO D01S03Z014
+                ELSE
+D01S03Z015:       Verl3 := 0
+                END
+              END
+            ELSE
+D01S00Z014:   IF T >= FE3 THEN
+                GOTO D01S01Z014
+              ELSE
+                GOTO D01S03Z015
+              END
+            END
+PROG_ENDED01: .
+/*----------------------------------------------------------------------------*/
+
+/* SIGNALPROGRAMM-ABHAENGIGE KONSTANTEN */ 
+            IF prog_aktiv = 1 THEN 
+              PhD_2 := 5;
+              FB1 := 2;
+              FE1 := 40;
+              SE1 := 50;
+              FB3 := 71;
+              FE3 := 80;
+              SE3 := 5;
+            ELSE IF prog_aktiv = 2 THEN 
+              PhD_2 := 5;
+            END END;
+
+/* VARIABLEN & AUSDRUECKE */ 
+            Bem_K4 := (ztl( 41 ) < GZL) OR (ztl( 42 ) < GZL);
+            Bem_K6 := ztl( 6 ) < GZL;
+            Stau_K2_1 := Bzt( 921 ) > STAU_BZT;
+            Stau_K2_2 := Bzt( 922 ) > STAU_BZT;
+
+/* HAUPTPROGRAMM */ 
+
+S00Z001:    GOSUB EB_MODUL;
+S00Z002:    IF PheA( 1 ) THEN
+S01Z002:      IF  NOT Erl1 THEN
+S03Z003:        Pue( 1, 2 );
+S03Z004:        Start( Vers_K11 )
+              ELSE
+S01Z003:        IF Verl1 THEN
+S02Z003:          IF  NOT Bem_K4 THEN
+                    GOTO S03Z003
+                  END
+                END
+              END
+            END;
+S00Z006:    IF PheA( 2 ) THEN
+S01Z006:      IF PheT( 2 ) >= PhD_2 THEN
+S03Z006:        Pue( 2, 3 )
+              END
+            END;
+S00Z008:    IF PheA( 3 ) THEN
+S01Z008:      IF  NOT Erl3 THEN
+S03Z009:        Pue( 3, 1 )
+              ELSE
+S01Z009:        IF Verl3 THEN
+S02Z009:          IF  NOT Bem_K6 THEN
+                    GOTO S03Z009
+                  END
+                END
+              END
+            END;
+S00Z012:    IF PheA( 11 ) THEN
+S01Z012:      IF Vers_K11 = 2 THEN
+S03Z012:        tgmin_F21 := 5;
+S04Z013:        Pue( 11, 12 )
+              ELSE
+S01Z013:        IF Stau_K2_2 THEN
+S03Z013:          tgmin_F21 := 5;
+                  GOTO S04Z013
+                END
+              END
+            END;
+S00Z015:    IF PheA( 12 ) THEN
+S01Z015:      IF tg( F21 ) >= tgmin_F21 THEN
+S02Z015:        IF  NOT Stau_K2_2 THEN
+S04Z016:          Pue( 12, 11 )
+                ELSE
+S02Z016:          IF  NOT Stau_K2_1 THEN
+                    GOTO S04Z016
+                  END
+                END
+              END
+            END;
+S00Z019:    IF PheA( 21 ) THEN
+S01Z019:      IF Vers_K11 = VERSATZ_K11 THEN
+S02Z019:        Stop( Vers_K11 ); Reset( Vers_K11 );
+S04Z019:        Pue( 21, 22 )
+              END
+            END;
+S00Z021:    IF PheA( 22 ) THEN
+S04Z021:      Pue( 22, 21 )
+            END
+PROG_ENDE:    .
+/*----------------------------------------------------------------------------*/

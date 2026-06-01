@@ -1,0 +1,13 @@
+﻿                  Warning	Simulation second 2.300: Vehicle 10 (on PT line "20: 380;380 WB;>;timeprofile 1;1") left link "2084" without stopping at PT stop "4: ID 3557B".	Network object type: Vehicle	Network object keys: 10
+                  Warning	Simulation second 84.700: Vehicle 81 (on PT line "25: 472;472 EB;>;timeprofile 1;1") left link "2807" without stopping at PT stop "243: ID 12318A".	Network object type: Vehicle	Network object keys: 81
+                  Warning	Simulation second 145.700: Vehicle 10 (on PT line "20: 380;380 WB;>;timeprofile 1;1") left link "2205" without stopping at PT stop "628: ID 16755B".	Network object type: Vehicle	Network object keys: 10
+                  Warning	Simulation second 234.500: Vehicle 10 (on PT line "20: 380;380 WB;>;timeprofile 1;1") left link "2581" without stopping at PT stop "160: ID 11712B".	Network object type: Vehicle	Network object keys: 10
+                    Error	VEHICLE: Could not find attribute with ID DESLINK.
+                    Error	VEHICLE: Could not find attribute with ID DESIREDLINK.
+                    Error	VEHICLE: Could not find attribute with ID DESTLINK.
+                    Error	put_AttValue failed - the attribute NEXTLINK is not editable
+                    Error	VEHICLE: Could not find attribute with ID DESLINK.
+                    Error	VEHICLE: Could not find attribute with ID DESIREDLINK.
+                    Error	VEHICLE: Could not find attribute with ID DESTLINK.
+                    Error	put_AttValue failed - the attribute NEXTLINK is not editable
+                     Note	Stop the simulation? : &Yes
